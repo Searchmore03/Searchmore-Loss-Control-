@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Search-More Loss Control | Find the leaks. Protect your profits.</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+
+    /* Brand colours */
+    :root {
+      --navy: #1A2B4C;
+      --gold: #D4AF37;
+      --light: #f8fafc;
+      --dark: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 15px 0;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .logo-area img {
+      height: 60px;
+      width: auto;
+    }
+    .logo-text h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0;
+    }
+    .logo-text p {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 10px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #c4a022;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0f1a2e 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .hero .tagline {
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 30px;
+    }
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 0;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: var(--navy);
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 10px auto 0;
+    }
+
+    /* Cards */
+    .services-grid, .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card i {
+      font-size: 2.8rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--navy);
+    }
+    .card .price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--gold);
+      margin: 15px 0;
+    }
+    .card p {
+      color: #475569;
+    }
+
+    /* Two-column about */
+    .about-grid {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .about-text {
+      flex: 1;
+    }
+    .about-text p {
+      margin-bottom: 1rem;
+    }
+    .about-stats {
+      flex: 1;
+      background: var(--navy);
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    .about-stats .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--gold);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .contact-item {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: var(--navy);
+      transition: all 0.2s;
+    }
+    .contact-item i {
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+    .contact-item span {
+      font-weight: 600;
+    }
+    .contact-item:hover {
+      background: var(--gold);
+      color: var(--navy);
+      transform: translateY(-3px);
+    }
+
+    footer {
+      background: var(--navy);
+      color: white;
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      nav a {
+        margin: 0 12px;
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .hero .tagline {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="logo-area">
+      <img src="image.jpg" alt="Search-More Loss Control Logo" onerror="this.style.display='none'">
+      <div class="logo-text">
+        <h1>Search-More</h1>
+        <p>LOSS CONTROL</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h2>Find the leaks.<br>Protect your profits.</h2>
+    <div class="tagline">20+ years helping businesses stop losing money</div>
+    <p>I help small businesses and tenderpreneurs uncover hidden losses, build lasting systems, and create professional brands.</p>
+    <a href="https://wa.me/27632353528?text=Hello%2C%20I%27d%20like%20to%20schedule%20a%20free%2015-minute%20consultation." class="btn">Free Consultation →</a>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <h2 class="section-title">My Core Services</h2>
+    <div class="services-grid">
+      <div class="card">
+        <i class="fas fa-magnifying-glass-chart"></i>
+        <h3>Financial Health Check</h3>
+        <p>Deep dive into your last 3 months of statements. Identify top 3 leaks and deliver a clear report.</p>
+        <div class="price">R1,500</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-table-list"></i>
+        <h3>Cash Flow System Setup</h3>
+        <p>Custom spreadsheets to track daily income/expenses. Training included.</p>
+        <div class="price">From R2,500</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Tender Readiness Assessment</h3>
+        <p>Pre‑bid financial review, cost analysis, and go/no‑go recommendation.</p>
+        <div class="price">R2,500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packages" style="background: #f1f5f9;">
+  <div class="container">
+    <h2 class="section-title">Bundled Packages – Best Value</h2>
+    <div class="packages-grid">
+      <div class="card">
+        <i class="fas fa-rocket"></i>
+        <h3>Startup Essentials</h3>
+        <p>Financial Health Check + Business Starter Pack (logo, business card, letterhead, invoice, one‑pager)</p>
+        <div class="price">R3,500 <span style="font-size:0.9rem; text-decoration:line-through; color:#aaa;">R4,000</span></div>
+      </div>
+      <div class="card">
+        <i class="fas fa-gavel"></i>
+        <h3>Tender‑Ready</h3>
+        <p>Tender Readiness Assessment + Full Brand Identity (logo, colours, fonts, stationery, social kit, guidelines)</p>
+        <div class="price">R6,500 <span style="font-size:0.9rem; text-decoration:line-through; color:#aaa;">R7,500</span></div>
+      </div>
+      <div class="card">
+        <i class="fas fa-building"></i>
+        <h3>Complete Overhaul</h3>
+        <p>Health Check + Cash Flow System + Full Brand Identity + 3 months retainer</p>
+        <div class="price">R12,000 <span style="font-size:0.9rem; text-decoration:line-through; color:#aaa;">R14,500</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About Search-More</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p><strong>Search-More Ngungwini</strong> is a Loss Control Consultant with over <strong>20 years</strong> of hands‑on experience in supply chain, financial operations, and business systems – starting in 2002.</p>
+        <p>He has saved millions by uncovering hidden losses and implementing lasting controls. He holds a Post‑Matric Certificate in Supply Chain Management, multiple Excel certifications, and is a skilled graphic designer (Canva, GIMP, Inkscape) with advanced AI prompt engineering training.</p>
+        <p><strong>I am not an accountant.</strong> I find what's leaking <em>now</em> and give you a clear plan to protect your profits.</p>
+      </div>
+      <div class="about-stats">
+        <div><span class="stat-number">20+</span><br>Years Experience</div>
+        <div style="margin-top: 20px;"><span class="stat-number">100+</span><br>Businesses Helped</div>
+        <div style="margin-top: 20px;"><span class="stat-number">R Millions</span><br>Saved for Clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Let’s Talk – Free 15‑min Consultation</h2>
+    <div class="contact-grid">
+      <a href="https://wa.me/27632353528?text=Hello%2C%20I%27d%20like%20to%20schedule%20a%20free%2015-minute%20consultation." class="contact-item">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+      <a href="mailto:smlosscontrol03@gmail.com" class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>Email</span>
+      </a>
+      <a href="https://t.me/SearchMoreLC" class="contact-item">
+        <i class="fab fa-telegram"></i>
+        <span>Telegram</span>
+      </a>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <p><strong>📍 East London, South Africa</strong> | Serving small businesses and tenderpreneurs nationwide.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Search-More Loss Control | Find the leaks. Protect your profits.</p>
+    <p style="margin-top: 10px; font-size: 0.8rem;">Proudly serving the Eastern Cape and beyond.</p>
+  </div>
+</footer>
+
+</body>
+</html>
